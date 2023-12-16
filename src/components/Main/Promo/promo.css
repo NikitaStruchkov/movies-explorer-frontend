@@ -1,0 +1,23 @@
+.promo {
+  width: 100%;
+  background-color: #f3c1f8;
+  background-image: url('../../../images/p-pr-landing-logo.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 524px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.promo__title {
+  padding: 0;
+  width: 57%;
+  height: auto;
+  text-align: center;
+  font-size: 3.125rem;
+  line-height: 3.625rem;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
