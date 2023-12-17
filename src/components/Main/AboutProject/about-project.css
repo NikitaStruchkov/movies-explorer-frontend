@@ -1,0 +1,100 @@
+.about-project {
+  /* min-height: 608px; */
+  background-color: #fff;
+}
+
+.about-project__title {
+  padding: 110px 0 23px;
+  margin: 0 auto;
+  color: #000;
+  font-size: 1.375rem;
+  line-height: auto;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  border-bottom: 1px solid #000;
+  width: 89%;
+}
+
+.about-project__steps {
+  margin: 94px auto 110px;
+  width: 89%;
+  display: flex;
+  gap: 40px;
+  justify-content: space-between;
+}
+
+.about-project__step {
+  color: #000;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+}
+
+.about-project__step-title {
+  font-size: 1.25rem;
+  line-height: auto;
+  font-weight: 400;
+}
+
+.about-project__step-discription {
+  padding: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+}
+
+.about-project__timeline {
+  margin: 0 auto;
+  min-height: 36px;
+  width: 89%;
+  display: flex;
+}
+
+.about-project__timeline:last-of-type {
+  margin-bottom: 105px;
+}
+
+.about-project__backend {
+  background-color: #000;
+  color: #fff;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-project__frontend {
+  background-color: #f2f2f2;
+  color: #000;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-project__timeline-discription {
+  padding: 0;
+  margin: auto;
+  font-size: 0.875rem;
+  line-height: auto;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  text-align: center;
+}
+
+.about-project__frontend-basement {
+  color: #a0a0a0;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-project__backend-basement {
+  color: #a0a0a0;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
