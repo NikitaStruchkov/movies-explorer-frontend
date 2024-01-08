@@ -2,18 +2,21 @@ import './app.css';
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 // import ProtectedRouteElement from '../ProtectedRoute'
-// import Register from '../Register'
-// import Login from '../Login'
+import Register from '../Register/Register'
+import Login from '../Login/Login'
 import Main from '../Main/Main'
-// import Movies from '../Movies'
-// import SavedMovies from '../SavedMovies'
-// import Profile from '../Profile'
+import Movies from '../Movies/Movies'
+import SavedMovies from '../SavedMovies/SavedMovies'
+import Profile from '../Profile/Profile'
+import ErrorPage from '../ErrorPage/ErrorPage'
+import Burger from '../Navigation/Burger/Burger';
 
 
 
 function App() {
   return (
     <div className="app">
+      <Burger />
 {/* Подготовьте необходимые маршруты:
 по роуту / отображается страница «О проекте»;
 по роуту /movies отображается страница «Фильмы»;
@@ -28,46 +31,39 @@ function App() {
 Если роут не совпадает ни с одним из вышеперечисленных, то должна отображаться 404 страница согласно макету. */}
 
 <Routes>
-            {/* <Route
+            <Route
               path='/signup'
               element={<Register />}
             />
-            <Route path='/signin' element={<Login />} /> */}
+            <Route path='/signin' element={<Login />} />
             <Route
               path='/'
               element={<Main/>}
             />
-            {/* <Route
+            <Route
               path='/movies'
-              element={
-                <ProtectedRouteElement
-                  element={<Movies/>}
-                />
-              }
+              element={<Movies/>}
+
             />
+            
              <Route
               path='/saved-movies'
-              element={
-                <ProtectedRouteElement
-                  element={<SavedMovies/>}
-                />
-              }
+              element={<SavedMovies/>}
+  
             />
+          
              <Route
               path='/profile'
-              element={
-                <ProtectedRouteElement
-                  element={<Profile/>}
-                />
-              }
-            />
-            <Route path='*' element={<Navigate to='/' replace />} /> */}
+              element={<Profile/>}
+  
+             />
+    
+            <Route
+             path='*'
+             element={<ErrorPage/>}
+            /> 
           </Routes>
 
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      
     </div>
   );
 }

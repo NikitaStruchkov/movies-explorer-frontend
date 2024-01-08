@@ -5,7 +5,7 @@ import React from 'react'
 export default function AboutMe () {
   return (
     <section className='about-me'>
-    <h2 className="about-project__title">Студент</h2>
+    <h2 className="about-project__title" id="student">Студент</h2>
     <div className="about-me__container">
     <div className="about-me__info">
        <h1 className="about-me__title">Никита</h1> 

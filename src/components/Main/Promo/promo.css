@@ -21,3 +21,17 @@
   font-style: normal;
   font-weight: 400;
 }
+
+@media (max-width: 768px) {
+  .promo__title {
+    width: 100%;
+  }
+}
+
+@media (max-width: 450px) {
+  .promo__title {
+    width: 93.75%;
+    font-size: 1.938rem;
+    line-height: 2.438rem;
+  }
+}

@@ -1,0 +1,85 @@
+.error-page {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .error-page {
+    margin-bottom: 222px;
+  }
+}
+
+@media (max-width: 500px) {
+  .error-page {
+    margin-bottom: 0;
+  }
+}
+
+.error-page__title {
+  margin: 246px auto 5px;
+  width: 31.25%;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 8.75rem;
+  color: #000;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .error-page__title {
+    width: 52%;
+    margin-top: 408px;
+  }
+}
+
+@media (max-width: 500px) {
+  .error-page__title {
+    font-size: 5rem;
+    margin-top: 329px;
+  }
+}
+
+.error-page__discription {
+  margin: 0 auto;
+  width: 31.25%;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #000;
+  text-align: center;
+}
+
+@media (max-width: 500px) {
+  .error-page__discription {
+    font-size: 0.75rem;
+    width: 100%;
+    
+  }
+}
+
+.error-page__back-button {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: #000;
+  text-align: center;
+  border-style: none;
+  background-color: #fff;
+  display: block;
+  margin: 184px auto 60px;
+}
+
+@media (max-width: 500px) {
+  .error-page__back-button{
+    margin-bottom: 30px;
+  }
+}
+
+
+.error-page__back-button:hover {
+  opacity: 0.6;
+  transition-duration: 0.5s;
+  cursor: pointer;
+}

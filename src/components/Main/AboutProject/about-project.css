@@ -16,6 +16,12 @@
   width: 89%;
 }
 
+@media (max-width: 450px) {
+  .about-project__title {
+    font-size: 1.125rem;
+  }
+}
+
 .about-project__steps {
   margin: 94px auto 110px;
   width: 89%;
@@ -23,6 +29,21 @@
   gap: 40px;
   justify-content: space-between;
 }
+
+@media (max-width: 768px) {
+  .about-project__steps {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 625px) {
+  .about-project__steps {
+    margin: 60px auto;
+    flex-direction: column;
+    gap: 22px;
+  }
+}
+
 
 .about-project__step {
   color: #000;
@@ -63,6 +84,13 @@
   align-items: center;
 }
 
+@media (max-width: 450px) {
+  .about-project__backend {
+    width: 35%;
+  }
+}
+
+
 .about-project__frontend {
   background-color: #f2f2f2;
   color: #000;
@@ -83,6 +111,13 @@
   text-align: center;
 }
 
+@media (max-width: 450px) {
+  .about-project__timeline-discription {
+    font-size: 0.688rem;
+  }
+}
+
+
 .about-project__frontend-basement {
   color: #a0a0a0;
   width: 80%;
@@ -97,4 +132,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 450px) {
+  .about-project__backend-basement {
+    width: 35%;
+  }
 }
