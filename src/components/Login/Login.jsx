@@ -6,7 +6,7 @@ import logo from '../../images/logo.svg'
 function Login() {
   return (
     <section className='register'>
-      <img src={logo} alt='Логотип' className='register__logo' />
+      <Link to='/'> <img src={logo} alt="Логотип" className='register__logo' /></Link>
       <h1 className='register__welcome'>Рады видеть!</h1>
       <form className='register__form'>
         <label for='email' className='register__label'>
@@ -16,7 +16,8 @@ function Login() {
           id='usermail'
           name='email'
           type='email'
-          //   placeholder='Email'
+          required
+            placeholder='Email'
           //   value={}
           //   onChange={}
         />
@@ -27,7 +28,8 @@ function Login() {
           id='password'
           name='password'
           type='password'
-          //   placeholder='Пароль'
+          required
+            placeholder='Пароль'
           //   value={}
           //   onChange={}
         />
@@ -42,8 +44,9 @@ function Login() {
           id='username'
           name='name'
           type='text'
+          required
           style={{ visibility: 'hidden' }}
-          //   placeholder='Имя'
+            placeholder='Имя'
           //   value={}
           //   onChange={}
         />

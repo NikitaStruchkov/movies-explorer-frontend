@@ -1,6 +1,7 @@
 .preloader {
     width: 89%;
     height: 166px;
+    border-radius: 6px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -12,6 +13,7 @@
     width: 320px;
     height: 36px;
     border-style: none;
+    border-radius: inherit;
     margin: 0 auto;
     font-family: 'Inter', 'Arial', sans-serif;
     font-style: normal;

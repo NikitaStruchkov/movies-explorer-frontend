@@ -15,7 +15,7 @@ function Header () {
 
   return (
     <header style={{ backgroundColor: isPink ? '#f3c1f8' : '#fff' }} className='header'>
-      <img className='header__logo' src={logo} alt='Логотип' />
+      <Link to='/'> <img className='header__logo' src={logo} alt='Логотип' /></Link>
       <Navigation />
       <div className="header__button-box">
         <Link className='header__buttons header__buttons_up' to='/signup'>

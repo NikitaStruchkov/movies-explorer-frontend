@@ -83,6 +83,7 @@
   font-weight: 500;
   font-size: 0.875rem;
   border-radius: 3px;
+  border-style: none;
   color: #fff;
   background-color: #000;
 }

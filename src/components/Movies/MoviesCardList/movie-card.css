@@ -1,5 +1,6 @@
 .movie-card {
   /* width: 360px; */
+  position: relative;
 }
 
 .movie-card-list {
@@ -14,8 +15,15 @@
   gap: 90px 30px;
 }
 
+@media (max-width: 1175px) {
+  .movie-card-list {
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  }
+}
+
 @media (max-width: 900px) {
   .movie-card-list {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     margin: 109px auto 0;
     gap: 88px 30px;
     width: 92%;
@@ -103,4 +111,57 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.movie-card__button {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border-style: none;
+  display: none;
+}
+
+.movie-card:hover .movie-card__button {
+  display: block;
+}
+
+.movie-card__button:hover {
+  opacity: 0.6;
+  transition-duration: 0.5s;
+  cursor: pointer;
+}
+
+.movie-card__button_save {
+  background-color: #f9f9f9;
+  border-radius: 30px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.625rem;
+  line-height: 0.563rem;
+  color: #000;
+  padding: 6px 7px;
+}
+
+.movie-card__button_saved {
+  background-image: url('../../../images/saved-icon.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #ff4062;
+  width: 21px;
+  height: 21px;
+  border-radius: 30px;
+  visibility: hidden; /* для 3 этапа */
+}
+
+.movie-card__button_delete {
+  background-image: url('../../../images/close-icon.svg');
+  background-position: center;
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-color: #f9f9f9;
+  width: 21px;
+  height: 21px;
+  border-radius: 30px;
+  visibility: hidden; /* для 3 этапа */
 }

@@ -1,5 +1,5 @@
 import './portfolio.css'
-import  pointer from '../../../images/portfolio-pointer-img.png'
+import  pointer from '../../../images/portfolio-pointer-img.svg'
 import React from 'react'
 
 export default function Portfolio () {

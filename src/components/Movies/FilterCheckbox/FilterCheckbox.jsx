@@ -8,7 +8,7 @@ export default function FilterCheckbox () {
         <input type="checkbox"></input>
         <span class="slider round"></span>
     </label>
-    <span class="filter-checkbox__discription">Короткометражки</span>
+    <span class="filter-checkbox-discription">Короткометражки</span>
 
     </div>
     
