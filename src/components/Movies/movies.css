@@ -1,0 +1,25 @@
+.movies {
+  background-color: #fff;
+}
+
+.movies__search-form {
+  margin: 0 auto;
+  margin-top: 70px;
+  box-shadow: 0 5px 15px 0 rgba(0,0,0,0.2);
+  max-width: 89%;
+  border-radius: 9px;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .movies__search-form  {
+    max-width: 92%;
+  }
+}
+
+@media (max-width: 650px) {
+  .movies__search-form  {
+    position: relative;
+  }
+}

@@ -1,0 +1,168 @@
+.register {
+  width: 30%;
+  margin: 0 auto;
+}
+
+@media (max-width: 960px) {
+  .register {
+    width: 52%;
+  }
+}
+
+@media (max-width: 550px) {
+  .register {
+    width: 90%;
+  }
+}
+
+.register__welcome {
+  margin: 40px 0 20px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: #000;
+}
+
+@media (max-width: 500px) {
+  .register__welcome {
+    margin: 40px auto 80px;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.register__form {
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 500px) {
+  .register__form {
+    width: 90%;
+  }
+}
+
+.register__form input {
+  padding-left: 15px;
+  min-height: 46px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  color: #000;
+  border-style: none;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.813rem;
+}
+
+.register__label {
+  margin: 20px 0 10px;
+  color: #a0a0a0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.625rem;
+}
+
+.register__button-container {
+  display: flex;
+  justify-content: center;
+  margin: 69px 0 16px;
+  width: 100%;
+}
+
+.register__button {
+  width: 100%;
+  padding: 13px 84px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 3px;
+  border-style: none;
+  color: #fff;
+  background-color: #000;
+}
+
+@media (max-width: 500px) {
+  .register__button {
+    font-size: 0.75rem;
+    margin-top: 159px;
+  }
+}
+
+.register__button:hover {
+  opacity: 0.6;
+  transition-duration: 0.5s;
+  cursor: pointer;
+}
+
+.register__signin {
+  color: #a0a0a0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .register__signin {
+    padding-bottom: 232px;
+  }
+}
+
+@media (max-width: 500px) {
+  .register__signin {
+    padding-bottom: 30px;
+    font-size: 0.75rem;
+  }
+}
+
+.register__signin p {
+  margin: 0 4px 0 0;
+}
+
+.register__login-link {
+  color: #000;
+  text-decoration: none;
+  font-size: 14px;
+  font-family: 'Inter', 'Arial', sans-serif;
+}
+
+@media (max-width: 500px) {
+  .register__login-link {
+    font-size: 0.75rem;
+  }
+}
+
+.register__login-link:hover {
+  color: #a9a9a9;
+  transition-duration: 0.5s;
+  cursor: pointer;
+}
+
+.register__logo {
+  width: 38px;
+  height: 38px;
+  margin-top: 70px;
+}
+
+@media (max-width: 960px) {
+  .register__logo {
+    margin-top: 232px;
+  }
+}
+
+@media (max-width: 500px) {
+  .register__logo {
+    margin: 56px auto 10px;
+    display: flex;
+  }
+}

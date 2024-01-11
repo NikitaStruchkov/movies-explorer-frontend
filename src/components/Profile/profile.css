@@ -1,0 +1,112 @@
+.profile {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.profile__welcome {
+  margin: 55px auto 123px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: #000;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .profile__welcome {
+    margin: 236px auto 96px;
+  }
+}
+
+@media (max-width: 450px) {
+  .profile__welcome {
+    margin: 70px auto 80px;
+  }
+}
+
+.profile__user-data {
+  width: 32%;
+  margin: 0 auto;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.688rem;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .profile__user-data {
+    width: 53%;
+  }
+}
+
+@media (max-width: 450px) {
+  .profile__user-data {
+    width: 81.25%;
+  }
+}
+
+
+.profile__user-key-value {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile__user-key-value:last-of-type {
+  border-top: 1px solid #e8e8e8;
+}
+
+.profile__button-box {
+  width: 32%;
+  margin: 220px auto 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .profile__button-box {
+    margin: 210px auto;
+    padding-bottom: 269px;
+  }
+}
+
+@media (max-width: 450px) {
+  .profile__button-box {
+    margin: 379px auto;
+    padding-bottom: 40px;
+    width: 100%;
+  }
+}
+
+.profile__button {
+  border-style: none;
+  background-color: #fff;
+  width: 100%;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.813rem;
+}
+
+@media (max-width: 450px) {
+  .profile__button {
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
+}
+
+.profile__button:hover {
+  opacity: 0.6;
+  transition-duration: 0.5s;
+  cursor: pointer;
+}
+
+.profile__button_edit {
+  color: #000;
+}
+
+.profile__button_logout {
+  color: #ff4062;
+}
