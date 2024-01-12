@@ -1,5 +1,5 @@
 import './app.css';
-import React from 'react'
+import React, { useEffect }  from 'react'
 import { Route, Routes } from 'react-router-dom'
 // import ProtectedRouteElement from '../ProtectedRoute'
 import Register from '../Register/Register'
@@ -10,10 +10,27 @@ import SavedMovies from '../SavedMovies/SavedMovies'
 import Profile from '../Profile/Profile'
 import ErrorPage from '../ErrorPage/ErrorPage'
 import Burger from '../Navigation/Burger/Burger';
+import { apiMovies } from '../../utils/MoviesApi'
 
 
 
 function App() {
+
+  // список фильмов
+  const [movies, setMovies] = React.useState([])
+
+
+   // «Реакт» вызовет этот колбэк после того, как компонент будет смонтирован или обновлён.
+   useEffect(() => {
+      Promise.all([apiMovies.getInitialMovies()])
+        .then(([movies]) => {
+          // setCurrentUser(user)
+          setMovies(movies)
+        })
+        .catch(err => console.log(err))
+  
+  }, [])
+
   return (
     <div className="app">
       <Burger />
@@ -42,7 +59,10 @@ function App() {
             />
             <Route
               path='/movies'
-              element={<Movies/>}
+              element={<Movies
+                movies={movies}
+              />}
+              
 
             />
             

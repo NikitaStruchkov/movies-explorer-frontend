@@ -7,7 +7,7 @@ import FilterCheckbox from './FilterCheckbox/FilterCheckbox';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 
-function Movies() {
+function Movies({ movies }) {
   return (
     <div>
        <Header />
@@ -16,6 +16,18 @@ function Movies() {
         <FilterCheckbox />
       </div>
       <section className='movie-card-list'>
+      {movies.map(movie => {
+          return (
+            <MoviesCardList
+            movie={movie}
+              key={movie.id}
+              // onCardClick={onCardClick}
+              // onCardLike={onCardLike}
+              // onCardDelete={onCardDelete}
+            />
+          )
+        })}
+        {/* <MoviesCardList />
         <MoviesCardList />
         <MoviesCardList />
         <MoviesCardList />
@@ -26,8 +38,7 @@ function Movies() {
         <MoviesCardList />
         <MoviesCardList />
         <MoviesCardList />
-        <MoviesCardList />
-        <MoviesCardList />
+        <MoviesCardList /> */}
       </section>
       <Preloader  isVisible={true} />
       <Footer />
