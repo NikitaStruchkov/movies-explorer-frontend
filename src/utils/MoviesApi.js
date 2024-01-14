@@ -17,12 +17,29 @@ class moviesApi {
   getInitialMovies() {
     //
     return fetch(`${this._url}/`, {
-    //   credentials: 'include',
+      //   credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
     }).then((res) => this._getResponseData(res));
   }
+
+//   getSearchMovies() {
+//     return fetch(`${this._url}/`, {
+//       //   credentials: 'include',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         const filteredMovies = data.filter((movie) => movie.nameRU);
+//         console.log(filteredMovies);
+//       })
+//       .catch((error) => {
+//         console.error('Error:', error);
+//       });
+//   }
 }
 
 export const apiMovies = new moviesApi({

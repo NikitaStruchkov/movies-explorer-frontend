@@ -1,40 +1,27 @@
 import './app.css';
-import React, { useEffect }  from 'react'
-import { Route, Routes } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
 // import ProtectedRouteElement from '../ProtectedRoute'
-import Register from '../Register/Register'
-import Login from '../Login/Login'
-import Main from '../Main/Main'
-import Movies from '../Movies/Movies'
-import SavedMovies from '../SavedMovies/SavedMovies'
-import Profile from '../Profile/Profile'
-import ErrorPage from '../ErrorPage/ErrorPage'
+import Register from '../Register/Register';
+import Login from '../Login/Login';
+import Main from '../Main/Main';
+import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
+import Profile from '../Profile/Profile';
+import ErrorPage from '../ErrorPage/ErrorPage';
 import Burger from '../Navigation/Burger/Burger';
-import { apiMovies } from '../../utils/MoviesApi'
-
-
+import { apiMovies } from '../../utils/MoviesApi';
 
 function App() {
 
-  // список фильмов
-  const [movies, setMovies] = React.useState([])
 
 
-   // «Реакт» вызовет этот колбэк после того, как компонент будет смонтирован или обновлён.
-   useEffect(() => {
-      Promise.all([apiMovies.getInitialMovies()])
-        .then(([movies]) => {
-          // setCurrentUser(user)
-          setMovies(movies)
-        })
-        .catch(err => console.log(err))
-  
-  }, [])
+
 
   return (
-    <div className="app">
+    <div className='app'>
       <Burger />
-{/* Подготовьте необходимые маршруты:
+      {/* Подготовьте необходимые маршруты:
 по роуту / отображается страница «О проекте»;
 по роуту /movies отображается страница «Фильмы»;
 по роуту /saved-movies отображается страница «Сохранённые фильмы»;
@@ -47,43 +34,18 @@ function App() {
 нажатие на «Регистрация», «Авторизация», «Аккаунт» — на соответствующие роуты /signup, /signin и /profile.
 Если роут не совпадает ни с одним из вышеперечисленных, то должна отображаться 404 страница согласно макету. */}
 
-<Routes>
-            <Route
-              path='/signup'
-              element={<Register />}
-            />
-            <Route path='/signin' element={<Login />} />
-            <Route
-              path='/'
-              element={<Main/>}
-            />
-            <Route
-              path='/movies'
-              element={<Movies
-                movies={movies}
-              />}
-              
+      <Routes>
+        <Route path='/signup' element={<Register />} />
+        <Route path='/signin' element={<Login />} />
+        <Route path='/' element={<Main />} />
+        <Route path='/movies' element={<Movies/>} />
 
-            />
-            
-             <Route
-              path='/saved-movies'
-              element={<SavedMovies/>}
-  
-            />
-          
-             <Route
-              path='/profile'
-              element={<Profile/>}
-  
-             />
-    
-            <Route
-             path='*'
-             element={<ErrorPage/>}
-            /> 
-          </Routes>
+        <Route path='/saved-movies' element={<SavedMovies />} />
 
+        <Route path='/profile' element={<Profile />} />
+
+        <Route path='*' element={<ErrorPage />} />
+      </Routes>
     </div>
   );
 }

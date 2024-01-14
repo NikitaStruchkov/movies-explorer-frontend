@@ -1,12 +1,14 @@
-import './preloader.css';
-import React from 'react';
+import React from 'react'
+import './preloader.css'
 
-export default function Preloader({ isVisible }) {
-  const visibilityStyle = isVisible ? {} : { visibility: 'hidden' };
+const Preloader = () => {
+    return (
+        <div className="preloader">
+            <div className="preloader__container">
+                <span className="preloader__round"></span>
+            </div>
+        </div>
+    )
+};
 
-  return (
-    <div className="preloader" style={visibilityStyle}>
-      <button className="preloader__button">Ещё</button>
-    </div>
-  );
-}
+export default Preloader

@@ -1,5 +1,5 @@
 import './movie-card.css';
-import simple from './../../../images/about-me-photo.jpg';
+// import simple from './../../../images/about-me-photo.jpg';
 import React from 'react';
 
 export default function MoviesCardList({ movie }) {
