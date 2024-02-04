@@ -3,10 +3,11 @@
   font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-size: 0.875rem;
-  display: flex;
+  /* display: flex; */
   justify-content: space-between;
   gap: 47px;
-  display: none; /* для 3 этапа */
+  /* display: none; для 3 этапа */
+  margin-right: 71px;
 }
 
 @media (max-width: 768px) {

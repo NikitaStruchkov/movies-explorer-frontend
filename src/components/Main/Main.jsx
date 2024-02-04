@@ -9,10 +9,10 @@ import Portfolio from './Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 
-function Main() {
+function Main({loggedIn}) {
   return (
     <main>
-      <Header />
+      <Header loggedIn={loggedIn} />
       <Promo />
       <NavTab />
       <AboutProject />

@@ -4,17 +4,24 @@ import { Link, useLocation } from 'react-router-dom';
 import iconpink from '../../images/acc-icon.svg'
 import iconblack from '../../images/acc-icon-black.svg'
 
-export default function Navigation() {
+export default function Navigation({loggedIn}) {
 
     const location = useLocation();
     const [isPink, setIsPink] = useState(false);
+    const [navDisplayStyle, setNavDisplayStyle] = useState('none');
   
     useEffect(() => {
       setIsPink(location.pathname === '/' ? true : false);
     }, [location]);
+    
+    useEffect(() => {
+      setNavDisplayStyle(loggedIn ? 'flex' : 'none');
+      console.log(loggedIn)
+    }, [loggedIn]);
+  
   
   return (
-    <section className='navigation'>
+    <section className='navigation' style={{ display: navDisplayStyle }}>
       <div className='navigation__links'>
         <Link className='navigation__link' to='/movies'>
           Фильмы

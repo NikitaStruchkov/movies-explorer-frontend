@@ -1,14 +1,34 @@
 import '../Register/register.css';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg'
 
-function Login() {
+function Login({ onLogin }) {
+
+  const [formValue, setFormValue] = useState({
+    email: '',
+    password: ''
+  })
+
+  const handleChange = e => {
+    const { name, value } = e.target
+
+    setFormValue({
+      ...formValue,
+      [name]: value
+    })
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    onLogin(formValue)
+  }
+
   return (
     <section className='register'>
       <Link to='/'> <img src={logo} alt="Логотип" className='register__logo' /></Link>
       <h1 className='register__welcome'>Рады видеть!</h1>
-      <form className='register__form'>
+      <form className='register__form' onSubmit={handleSubmit}>
         <label for='email' className='register__label'>
           Email
         </label>
@@ -18,8 +38,8 @@ function Login() {
           type='email'
           required
             placeholder='Email'
-          //   value={}
-          //   onChange={}
+            value={formValue.email}
+            onChange={handleChange}
         />
         <label for='password' className='register__label'>
           Пароль
@@ -30,8 +50,8 @@ function Login() {
           type='password'
           required
             placeholder='Пароль'
-          //   value={}
-          //   onChange={}
+            value={formValue.password}
+            onChange={handleChange}
         />
         <label
           for='name'
@@ -44,19 +64,16 @@ function Login() {
           id='username'
           name='name'
           type='text'
-          required
+          // required
           style={{ visibility: 'hidden' }}
             placeholder='Имя'
-          //   value={}
-          //   onChange={}
         />
         <div className='register__button-container'>
           <button
             type='submit'
-            // onSubmit={}
             className='register__button'
           >
-            Зарегистрироваться
+            Войти
           </button>
         </div>
       </form>
