@@ -8,24 +8,26 @@ import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import MoreButton from "./MoreButton/MoreButton";
 import { apiMovies } from "../../utils/MoviesApi";
-import { REQUEST_ERROR_MESSAGE, NOTHING_FOUND } from "../../utils/constants";
+import { REQUEST_ERROR_MESSAGE, NOTHING_FOUND, KEYWORD__MESSAGE } from "../../utils/constants";
 
 function Movies({  loggedIn  }) {
-  // Хук useState принимает начальное значение состояния и возвращает массив, в котором первый элемент - текущее значение состояния, а второй элемент - функция для его обновления.
+  const savedState = JSON.parse(localStorage.getItem('movieState'));
+
   // список всех фильмов
-  const [movies, setMovies] = React.useState([]);
+  const [movies, setMovies] = React.useState(savedState.filteredMovies || []);
   // для хранения отфильтрованных фильмов
   const [filteredMovies, setFilteredMovies] = useState([]);
   // для значения ввода пользователя
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(savedState.searchQuery || "");
   // Состояние для отслеживания состояния загрузки
   const [isPreloader, setIsPreloader] = useState(false);
-  // для хранения состояния ответа при вознкновении ошибки
-  const [isRequest, setIsRequest] = useState(false);
 
   const [initialCards, setInitialCards] = useState(0); // максимальное количество карточек при загрузке
   const [additionalCards, setAdditionalCards] = useState(4); // количество карточек, загружаемых по кнопке "Ещё"
-  const [isShortMoviesOnly, setIsShortMoviesOnly] = useState(false); // состояние чекбокса Короткометражки
+  const [isShortMoviesOnly, setIsShortMoviesOnly] = useState(savedState.isShortMoviesOnly || false); // состояние чекбокса Короткометражки
+  const [isMessage, setIsMessage] = useState('')
+
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,40 +60,72 @@ function Movies({  loggedIn  }) {
     setInitialCards(initialCards + additionalCards);
   }
 
+  // фильмы из хранилища
+  // const storedFilteredMovies = JSON.parse(localStorage.getItem('filteredMovies'));
 //  обработчик нажатия кнопки Найти
 const handleSearch = (event) => {
   event.preventDefault();
-  const filteredMoviesList = movies.filter((movie) => {
-    const isFilmShort = isShortMoviesOnly ? movie.duration <= 40 : true;
-    const isMatch = movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    return isFilmShort && isMatch;
-  });
-  setFilteredMovies(filteredMoviesList);
-
-    // Имитируем задержку, чтобы показать прелоадер
-    setTimeout(() => {
-      // Закончили загрузку, скрываем прелоадер
-      setIsPreloader(false); 
-      // setFilteredMovies(filteredMoviesList);
   
-    }, 1000); // Примерно 1 секунда задержки для прелоадера
-
-  };
+  if (searchQuery === '') {
+    setFilteredMovies([]);
+    setIsMessage(KEYWORD__MESSAGE);
+  } else {
+    const filteredMoviesList = movies.filter((movie) => {
+      const isFilmShort = isShortMoviesOnly ? movie.duration <= 40 : true;
+      const isMatch = movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      return isFilmShort && isMatch;
+    });
+    
+    if (filteredMoviesList.length === 0) {
+      setFilteredMovies([]);
+      setIsMessage(NOTHING_FOUND);
+    } else {
+      setFilteredMovies(filteredMoviesList);
+      setIsMessage(' ');
+    }
+  }
+};
  
   // обработчик ввода в строку поиска
   const handleInput = (event) => {
     const value = event.target.value;
+    setIsMessage(' ');
     setSearchQuery(value);
   };
 
-  /// Добавьте обработчик изменения состояния чекбокса "Короткометражки"
+  // обработчик изменения состояния чекбокса "Короткометражки"
   const handleShortMoviesToggle = () => {
     setIsShortMoviesOnly(!isShortMoviesOnly);
   };
 
-  
+ // Для сохранения в localStorage результатов поиска
+ useEffect(() => {
+  const stateToSave = { filteredMovies, searchQuery, isShortMoviesOnly };
+  localStorage.setItem('movieState', JSON.stringify(stateToSave));
+}, [filteredMovies, searchQuery, isShortMoviesOnly]);
+
+
+
+  // «Реакт» вызовет этот колбэк после того, как компонент будет смонтирован или обновлён.
   useEffect(() => {
+  if (loggedIn) {
+    setIsPreloader(true); // показываем прелоадер
+    Promise.all([apiMovies.getInitialMovies()])
+      .then(([movies]) => {
+        console.log('хуй')
+        setMovies(movies);
+        setIsPreloader(false); // скрываем прелоадер после получения ответа от API
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsPreloader(false); // скрываем прелоадер в случае ошибки
+      });
+  }
+}, [loggedIn]);
+
+
+ useEffect(() => {
     if (searchQuery) {
       const filteredMoviesList = movies.filter((movie) => {
         const isFilmShort = isShortMoviesOnly ? movie.duration <= 40 : true;
@@ -102,23 +136,9 @@ const handleSearch = (event) => {
     } else {
       setFilteredMovies([]);
     }
-  }, [movies, isShortMoviesOnly, searchQuery]);
+  }, [isShortMoviesOnly]);
 
-  // «Реакт» вызовет этот колбэк после того, как компонент будет смонтирован или обновлён.
-  useEffect(() => {
-    if (loggedIn) {
-    setIsPreloader(true); // показывем прелоадер
-    Promise.all([apiMovies.getInitialMovies()])
-      .then(([movies]) => {
-        // setCurrentUser(user)
-        setMovies(movies);
-        setIsPreloader(false); // скрываем прелоадер после получения ответа от API
-      })
-      .catch((err) => 
-      console.log(err));
-      setIsRequest(true);
-    }
-  }, [loggedIn]);
+
 
 
   return (
@@ -130,21 +150,17 @@ const handleSearch = (event) => {
           onChange={handleInput}
           onSubmit={handleSearch}
         />
-        <FilterCheckbox isShortMoviesOnly={isShortMoviesOnly} onShortMoviesToggle={handleShortMoviesToggle} />
+        <FilterCheckbox isShortMoviesOnly={isShortMoviesOnly} onShortMoviesToggle={handleShortMoviesToggle} checked={savedState.isShortMoviesOnly} />
       </div>
       <Preloader  isPreloader={isPreloader} />
-      {filteredMovies.length === 0 && <p className="movies__nothing-found">{isRequest ?   NOTHING_FOUND : REQUEST_ERROR_MESSAGE}</p>}
+      <p className="movies__nothing-found">{isMessage}</p>
       <section className="movie-card-list">
         {filteredMovies.slice(0, initialCards).map((movie) => {
           return (
             <MoviesCardList
               movie={movie}
               key={movie.id}
-              // onCardClick={onCardClick}
-              // onCardLike={onCardLike}
-              // onCardDelete={onCardDelete}
             />
-      
           );
         })}
       </section>
@@ -155,3 +171,6 @@ const handleSearch = (event) => {
 }
 
 export default Movies;
+
+
+

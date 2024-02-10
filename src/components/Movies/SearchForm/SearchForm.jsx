@@ -18,15 +18,6 @@ export default function SearchForm({ searchQuery, onSubmit, onChange }) {
         <button className='search-form__button' type='submit'>
           Найти
         </button>
-        {/* {props.filteredMovies.length > 0 ? (
-        <ul>
-          {props.filteredMovies.map((movie) => (
-            <li key={movie.id}>{movie.nameRU}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>Фильмы не найдены</p>
-      )} */}
      </form>
   );
 }

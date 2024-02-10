@@ -71,6 +71,7 @@
 .register__button-container {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   margin: 69px 0 16px;
   width: 100%;
 }
@@ -99,6 +100,10 @@
   opacity: 0.6;
   transition-duration: 0.5s;
   cursor: pointer;
+}
+
+.register__button:disabled {
+  opacity: 0.3
 }
 
 .register__signin {
@@ -165,4 +170,11 @@
     margin: 56px auto 10px;
     display: flex;
   }
+}
+
+
+.register__error {
+  color: red;
+  padding-left: 10px;
+  padding-top: 10px;
 }

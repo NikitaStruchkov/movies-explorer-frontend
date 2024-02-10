@@ -19,7 +19,7 @@ function App() {
   const navigate = useNavigate()
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('userId') !== null ? true : false)// вошёл пользователь в систему или нет
   const [currentUser, setCurrentUser] = useState({}) // пользователь
-
+  const [errorMessage, setErrorMessage] = useState(''); // сообщение с ошибкой
   // ЛОГИН
   const handleLogin = formValue => {
     if (!formValue.email || !formValue.password) {
@@ -74,6 +74,7 @@ function App() {
       })
       .catch(err => {
         console.log(err)
+        setErrorMessage('Произошла ошибка при регистрации. Пожалуйста, попробуйте снова.');
       })
   }
 // ВЫХОД
@@ -133,7 +134,7 @@ function App() {
 
 
       <Routes>
-        <Route path='/signup' element={<Register onRegister={handleRegister} />} />
+        <Route path='/signup' element={<Register errorMessage={errorMessage} onRegister={handleRegister} />} />
         <Route path='/signin' element={<Login onLogin={handleLogin} />} />
         <Route path='/' element={<Main loggedIn={loggedIn} />} />
         <Route path='/movies' element={<Movies  loggedIn={loggedIn} />} />

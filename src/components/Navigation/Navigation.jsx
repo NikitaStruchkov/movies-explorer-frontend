@@ -15,11 +15,16 @@ export default function Navigation({loggedIn}) {
     }, [location]);
     
     useEffect(() => {
-      setNavDisplayStyle(loggedIn ? 'flex' : 'none');
-      console.log(loggedIn)
+      if(location.pathname === '/profile') {
+        setNavDisplayStyle('flex')
+      } else {
+        setNavDisplayStyle(loggedIn ? 'flex' : 'none');
+      }
+      
     }, [loggedIn]);
   
-  
+
+
   return (
     <section className='navigation' style={{ display: navDisplayStyle }}>
       <div className='navigation__links'>
