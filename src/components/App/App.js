@@ -81,6 +81,8 @@ function App() {
   const handleExit = () => {
     setLoggedIn(false)
     localStorage.removeItem('userId')
+    localStorage.removeItem('movieState');
+    localStorage.removeItem('likedMovies');
     navigate('/signin')
   }
 
@@ -115,6 +117,55 @@ function App() {
     }, [])
   
 
+
+
+
+
+
+////////////////////
+const [likedMovies, setLikedMovies] = useState(JSON.parse(localStorage.getItem('likedMovies')) ||  []); 
+const [isChanged, setChange] = useState(false); // изменение в сохраненных фильмах - для своевременного ререндера 
+
+function handleLike(movie) {
+  const isAdded = likedMovies.some(i => i.movieId === movie.id);
+  if (!isAdded) {
+    apiMain.createMovie(movie)
+      .then((movie) => {
+        setLikedMovies([...likedMovies, movie]);
+      })
+      .catch((err) => console.log(err));
+  } else {
+    const deleteMovie = likedMovies.filter((likesMovie) => likesMovie.movieId === movie.id);
+    apiMain.deleteMovie(deleteMovie[0]._id)
+      .then(() => {
+        setLikedMovies((prevMovies) =>
+          prevMovies.filter((movie) => deleteMovie[0].movieId !== movie.movieId)
+        );
+      })
+      .catch((err) => console.log(err));
+  }
+}
+
+
+   useEffect(() => { 
+    localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
+  }, [likedMovies])
+
+
+
+  function handleDelete(movieId) { //  удаление фильма из списка понравившихся фильмов
+    apiMain.deleteMovie(movieId)
+      .then(() => {
+        setLikedMovies((prevMovies) => prevMovies.filter(movie => movie._id !== movieId)); 
+        setChange(!isChanged);
+        // фильтрует список фильмов и исключает удаленный фильм
+      })
+      .catch((err) => console.log(err));
+  }
+
+
+
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
     <div className='app'>
@@ -137,9 +188,9 @@ function App() {
         <Route path='/signup' element={<Register errorMessage={errorMessage} onRegister={handleRegister} />} />
         <Route path='/signin' element={<Login onLogin={handleLogin} />} />
         <Route path='/' element={<Main loggedIn={loggedIn} />} />
-        <Route path='/movies' element={<Movies  loggedIn={loggedIn} />} />
+        <Route path='/movies' element={<Movies likedMovies={likedMovies} handleLike={handleLike} loggedIn={loggedIn} />} />
 
-        <Route path='/saved-movies' element={<SavedMovies />} />
+        <Route path='/saved-movies' element={<SavedMovies isChanged={isChanged} handleDelete={handleDelete} loggedIn={loggedIn} />} />
 
         <Route path='/profile' element={<Profile onClick={handleExit} onUpdateUser={handleUpdateUser}/>} />
 

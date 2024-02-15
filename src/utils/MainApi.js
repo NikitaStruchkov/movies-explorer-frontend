@@ -37,6 +37,95 @@ sendUserInfo (profileData){
     body: JSON.stringify(profileData)
   }).then(res => this._getResponseData(res))
 }
+
+////////////////////////////////////////////
+
+//  // Метод изменения кнопки лайка
+//  changeLikeCardStatus (cardId, isLiked) {
+//   if (isLiked) {
+//     return this.deleteCardLike(cardId)
+//   } else {
+//     return this.putCardLike(cardId)
+//   }
+// }
+
+// // Метод отправки лайка на сервер
+// putCardLike (cardId) {
+//   return fetch(`${this._url}/cards/${cardId}/likes`, {
+//     method: 'PUT',
+//     credentials: 'include',
+//     headers: {
+//       authorization: this._authorization
+//     }
+//   }).then(res => this._getResponseData(res))
+// }
+// // Метод удаления лайка с сервера
+// deleteCardLike (cardId) {
+//   return fetch(`${this._url}/cards/${cardId}/likes`, {
+//     method: 'DELETE',
+//     credentials: 'include',
+//     headers: {
+//       authorization: this._authorization
+//     }
+//   }).then(res => this._getResponseData(res))
+// }
+
+
+
+
+/////////////////////
+
+
+
+
+
+ getMovies() {
+  return fetch(`${this._url}/movies`, {
+    credentials: 'include',
+    headers: {
+  'Content-Type': 'application/json'
+}
+  }).then(res => this._getResponseData(res))
+}
+
+
+ createMovie (movie) {
+  return fetch(`${this._url}/movies`, {
+    method: 'POST',
+    headers: {
+
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      "country": movie.country,
+      "director": movie.director,
+      "duration": movie.duration,
+      "year": movie.year,
+      "description": movie.description,
+      "image": "https://api.nomoreparties.co/" + movie.image.url,
+      "trailerLink": movie.trailerLink,
+      "thumbnail": "https://api.nomoreparties.co/" + movie.image.formats.thumbnail.url,
+      "movieId": movie.id,
+      "nameRU": movie.nameRU,
+      "nameEN": movie.nameEN,
+      // "isLked": movie.isLked,
+    })
+  })
+  .then(res => this._getResponseData(res))
+}
+
+deleteMovie(movieId) {
+  return fetch(`${this._url}/movies/${movieId}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: this._authorization,
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include'
+  })
+  .then(res => this._getResponseData(res))
+}
 }
 
 export const apiMain = new MainApi({

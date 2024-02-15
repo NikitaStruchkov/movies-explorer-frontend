@@ -9,26 +9,64 @@ import Header from "../Header/Header";
 import MoreButton from "./MoreButton/MoreButton";
 import { apiMovies } from "../../utils/MoviesApi";
 import { REQUEST_ERROR_MESSAGE, NOTHING_FOUND, KEYWORD__MESSAGE } from "../../utils/constants";
+import { apiMain } from "../../utils/MainApi";
 
-function Movies({  loggedIn  }) {
-  const savedState = JSON.parse(localStorage.getItem('movieState'));
-
-  // список всех фильмов
-  const [movies, setMovies] = React.useState(savedState.filteredMovies || []);
+function Movies({  loggedIn , handleLike, likedMovies }) {
+  const savedState = JSON.parse(localStorage.getItem('movieState')) || {};
+    // Инициализация состояния movies
+  const initialMovies = savedState.filteredMovies || [];
+  const [movies, setMovies] = React.useState(initialMovies);
   // для хранения отфильтрованных фильмов
   const [filteredMovies, setFilteredMovies] = useState([]);
   // для значения ввода пользователя
   const [searchQuery, setSearchQuery] = useState(savedState.searchQuery || "");
   // Состояние для отслеживания состояния загрузки
   const [isPreloader, setIsPreloader] = useState(false);
-
   const [initialCards, setInitialCards] = useState(0); // максимальное количество карточек при загрузке
   const [additionalCards, setAdditionalCards] = useState(4); // количество карточек, загружаемых по кнопке "Ещё"
   const [isShortMoviesOnly, setIsShortMoviesOnly] = useState(savedState.isShortMoviesOnly || false); // состояние чекбокса Короткометражки
   const [isMessage, setIsMessage] = useState('')
+  // const [likedMovies, setLikedMovies] = useState(JSON.parse(localStorage.getItem('likedMovies')) ||  []); 
+
+ 
+
+
+  // function handleLike(movie) {
+  //   // const isAdded = movie.isLiked === true
+  //   const isAdded = likedMovies.some(i => i.movieId === movie.id);
+  //   // if (!isSaved) {
+  //   if (!isAdded) {
+  //     apiMain.createMovie(movie)
+  //       .then((movie) => {
+  //         // const updatedMovie = { ...newMovie, isLiked: true }; // Создаем новый объект с добавленным полем
+  //         // setLikedMovies([...likedMovies, updatedMovie]);
+  //         // console.log(updatedMovie)
+  //         setLikedMovies([...likedMovies, movie]);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   } else {
+  //     const deleteMovie = likedMovies.filter((likesMovie) => likesMovie.movieId === movie.id);
+  //     apiMain.deleteMovie(deleteMovie[0]._id)
+  //       .then(() => {
+  //         setLikedMovies((prevMovies) =>
+  //           prevMovies.filter((movie) => deleteMovie[0].movieId !== movie.movieId)
+  //         );
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // }
+
+
+  //  useEffect(() => { 
+  //   localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
+  // }, [likedMovies])
 
 
 
+  // function handleMovieLike() {
+  //   handleLike()
+  // }
+  
   useEffect(() => {
     const handleResize = () => {
       const screenWidth = window.innerWidth;
@@ -60,12 +98,9 @@ function Movies({  loggedIn  }) {
     setInitialCards(initialCards + additionalCards);
   }
 
-  // фильмы из хранилища
-  // const storedFilteredMovies = JSON.parse(localStorage.getItem('filteredMovies'));
 //  обработчик нажатия кнопки Найти
 const handleSearch = (event) => {
   event.preventDefault();
-  
   if (searchQuery === '') {
     setFilteredMovies([]);
     setIsMessage(KEYWORD__MESSAGE);
@@ -86,7 +121,6 @@ const handleSearch = (event) => {
     }
   }
 };
- 
   // обработчик ввода в строку поиска
   const handleInput = (event) => {
     const value = event.target.value;
@@ -106,24 +140,27 @@ const handleSearch = (event) => {
 }, [filteredMovies, searchQuery, isShortMoviesOnly]);
 
 
-
   // «Реакт» вызовет этот колбэк после того, как компонент будет смонтирован или обновлён.
   useEffect(() => {
-  if (loggedIn) {
-    setIsPreloader(true); // показываем прелоадер
-    Promise.all([apiMovies.getInitialMovies()])
-      .then(([movies]) => {
-        console.log('хуй')
-        setMovies(movies);
-        setIsPreloader(false); // скрываем прелоадер после получения ответа от API
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsPreloader(false); // скрываем прелоадер в случае ошибки
-      });
-  }
-}, [loggedIn]);
-
+    if (loggedIn) {
+      setIsPreloader(true); // показываем прелоадер
+      Promise.all([apiMovies.getInitialMovies()])
+        .then(([movies]) => {
+          // Обогащаем каждый фильм в массиве фильмов новым полем isLiked
+          const enrichedMovies = movies.map(movie => ({
+            ...movie,
+            isLiked: false
+          }));
+          setMovies(enrichedMovies); // добавлем в стейт обновленный массив
+          // console.log(enrichedMovies)
+          setIsPreloader(false); // скрываем прелоадер после получения ответа от API
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsPreloader(false); // скрываем прелоадер в случае ошибки
+        });
+    }
+  }, [loggedIn]);
 
  useEffect(() => {
     if (searchQuery) {
@@ -137,8 +174,6 @@ const handleSearch = (event) => {
       setFilteredMovies([]);
     }
   }, [isShortMoviesOnly]);
-
-
 
 
   return (
@@ -159,7 +194,10 @@ const handleSearch = (event) => {
           return (
             <MoviesCardList
               movie={movie}
-              key={movie.id}
+              key={movie.id} // уникальный ключ для каждого элемента списка
+              handleLike={() => handleLike(movie)}
+              isLiked={likedMovies.some(i => i.movieId === movie.id)} // есть ли хотя бы один элемент в массиве `likedMovies`, у которого свойство `movieId` соответствует `id` текущего фильма
+              // isLiked={movie.isLiked}
             />
           );
         })}

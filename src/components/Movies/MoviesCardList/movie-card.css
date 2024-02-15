@@ -151,7 +151,8 @@
   width: 21px;
   height: 21px;
   border-radius: 30px;
-  visibility: hidden; /* для 3 этапа */
+  display: block;
+  /* visibility: hidden; для 3 этапа */
 }
 
 .movie-card__button_delete {
@@ -163,5 +164,5 @@
   width: 21px;
   height: 21px;
   border-radius: 30px;
-  visibility: hidden; /* для 3 этапа */
+  /* visibility: hidden; для 3 этапа */
 }
