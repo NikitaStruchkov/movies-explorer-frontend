@@ -38,47 +38,6 @@ sendUserInfo (profileData){
   }).then(res => this._getResponseData(res))
 }
 
-////////////////////////////////////////////
-
-//  // Метод изменения кнопки лайка
-//  changeLikeCardStatus (cardId, isLiked) {
-//   if (isLiked) {
-//     return this.deleteCardLike(cardId)
-//   } else {
-//     return this.putCardLike(cardId)
-//   }
-// }
-
-// // Метод отправки лайка на сервер
-// putCardLike (cardId) {
-//   return fetch(`${this._url}/cards/${cardId}/likes`, {
-//     method: 'PUT',
-//     credentials: 'include',
-//     headers: {
-//       authorization: this._authorization
-//     }
-//   }).then(res => this._getResponseData(res))
-// }
-// // Метод удаления лайка с сервера
-// deleteCardLike (cardId) {
-//   return fetch(`${this._url}/cards/${cardId}/likes`, {
-//     method: 'DELETE',
-//     credentials: 'include',
-//     headers: {
-//       authorization: this._authorization
-//     }
-//   }).then(res => this._getResponseData(res))
-// }
-
-
-
-
-/////////////////////
-
-
-
-
-
  getMovies() {
   return fetch(`${this._url}/movies`, {
     credentials: 'include',
@@ -129,8 +88,8 @@ deleteMovie(movieId) {
 }
 
 export const apiMain = new MainApi({
-    // url: 'https://api.diplom.nomoredomainsmonster.ru',
-    url: 'http://localhost:3001',
+    url: 'https://api.diplom.nomoredomainsmonster.ru',
+    // url: 'http://localhost:3001',
     headers: {
       'Content-Type': 'application/json',
     },

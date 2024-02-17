@@ -17,10 +17,21 @@ function Header ({loggedIn}) {
   useEffect(() => {
     if(location.pathname === '/profile') {
       setButtonDisplayStyle('none');
+    } else if(location.pathname === '/saved-movies') {
+      setButtonDisplayStyle('none');
+    
     } else {
       setButtonDisplayStyle(loggedIn ? 'none' : 'flex');
     }
   }, [loggedIn, location]);
+
+
+  function openPopup() {
+    const burgerElement = document.querySelector('.burger');
+    if (burgerElement) {
+      burgerElement.style.display = 'flex';
+    }
+  }
 
 
   return (
@@ -35,7 +46,7 @@ function Header ({loggedIn}) {
         Вход
         </Link>
       </div>
-      <img className='header__burger' src={burger} alt='Меню' />
+      <img className='header__burger' src={burger} alt='Меню'  onClick={openPopup}/>
     </header>
   )
 }

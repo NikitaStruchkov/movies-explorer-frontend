@@ -166,3 +166,12 @@
   border-radius: 30px;
   /* visibility: hidden; для 3 этапа */
 }
+
+
+
+
+@media (max-width: 450px) {
+  .movie-card__button {
+    display: block;
+  }
+}

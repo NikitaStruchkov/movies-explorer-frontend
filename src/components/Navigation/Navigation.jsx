@@ -17,6 +17,8 @@ export default function Navigation({loggedIn}) {
     useEffect(() => {
       if(location.pathname === '/profile') {
         setNavDisplayStyle('flex')
+      } else if(location.pathname === '/saved-movies') {
+          setNavDisplayStyle('flex')
       } else {
         setNavDisplayStyle(loggedIn ? 'flex' : 'none');
       }

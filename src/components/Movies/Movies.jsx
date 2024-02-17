@@ -9,7 +9,6 @@ import Header from "../Header/Header";
 import MoreButton from "./MoreButton/MoreButton";
 import { apiMovies } from "../../utils/MoviesApi";
 import { REQUEST_ERROR_MESSAGE, NOTHING_FOUND, KEYWORD__MESSAGE } from "../../utils/constants";
-import { apiMain } from "../../utils/MainApi";
 
 function Movies({  loggedIn , handleLike, likedMovies }) {
   const savedState = JSON.parse(localStorage.getItem('movieState')) || {};
@@ -26,65 +25,29 @@ function Movies({  loggedIn , handleLike, likedMovies }) {
   const [additionalCards, setAdditionalCards] = useState(4); // количество карточек, загружаемых по кнопке "Ещё"
   const [isShortMoviesOnly, setIsShortMoviesOnly] = useState(savedState.isShortMoviesOnly || false); // состояние чекбокса Короткометражки
   const [isMessage, setIsMessage] = useState('')
-  // const [likedMovies, setLikedMovies] = useState(JSON.parse(localStorage.getItem('likedMovies')) ||  []); 
-
- 
 
 
-  // function handleLike(movie) {
-  //   // const isAdded = movie.isLiked === true
-  //   const isAdded = likedMovies.some(i => i.movieId === movie.id);
-  //   // if (!isSaved) {
-  //   if (!isAdded) {
-  //     apiMain.createMovie(movie)
-  //       .then((movie) => {
-  //         // const updatedMovie = { ...newMovie, isLiked: true }; // Создаем новый объект с добавленным полем
-  //         // setLikedMovies([...likedMovies, updatedMovie]);
-  //         // console.log(updatedMovie)
-  //         setLikedMovies([...likedMovies, movie]);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   } else {
-  //     const deleteMovie = likedMovies.filter((likesMovie) => likesMovie.movieId === movie.id);
-  //     apiMain.deleteMovie(deleteMovie[0]._id)
-  //       .then(() => {
-  //         setLikedMovies((prevMovies) =>
-  //           prevMovies.filter((movie) => deleteMovie[0].movieId !== movie.movieId)
-  //         );
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }
-
-
-  //  useEffect(() => { 
-  //   localStorage.setItem('likedMovies', JSON.stringify(likedMovies));
-  // }, [likedMovies])
-
-
-
-  // function handleMovieLike() {
-  //   handleLike()
-  // }
+  const handleResize = () => {
+    const screenWidth = window.innerWidth;
+    if (screenWidth >= 1280) {
+      setInitialCards(12);
+      setAdditionalCards(3);
+    } else if (screenWidth >= 1175) {
+      setInitialCards(12);
+      setAdditionalCards(3);
+    } else if (screenWidth >= 768) {
+      setInitialCards(8);
+      setAdditionalCards(2);
+    } else if (screenWidth >= 480) {
+      setInitialCards(5);
+      setAdditionalCards(1);
+    } else {
+      setInitialCards(5);
+      setAdditionalCards(1);
+    }
+  };
   
   useEffect(() => {
-    const handleResize = () => {
-      const screenWidth = window.innerWidth;
-      if (screenWidth >= 1280) {
-        setInitialCards(12);
-        setAdditionalCards(3);
-      } else if (screenWidth >= 768) {
-        setInitialCards(8);
-        setAdditionalCards(2);
-      } else if (screenWidth >= 480) {
-        setInitialCards(5);
-        setAdditionalCards(1);
-      } else {
-        setInitialCards(5);
-        setAdditionalCards(1);
-      }
-    };
-
     handleResize(); // обрабатываем размер окна сразу при загрузке компонента
     window.addEventListener('resize', handleResize); // слушаем событие изменения размера окна
 
@@ -104,6 +67,7 @@ const handleSearch = (event) => {
   if (searchQuery === '') {
     setFilteredMovies([]);
     setIsMessage(KEYWORD__MESSAGE);
+    setInitialCards(initialCards); // Сброс значения количества карточек обратно к начальному значению
   } else {
     const filteredMoviesList = movies.filter((movie) => {
       const isFilmShort = isShortMoviesOnly ? movie.duration <= 40 : true;
@@ -118,6 +82,7 @@ const handleSearch = (event) => {
     } else {
       setFilteredMovies(filteredMoviesList);
       setIsMessage(' ');
+      handleResize() // для сброса количества отображаемых карточек при очередном поиске
     }
   }
 };
@@ -152,12 +117,12 @@ const handleSearch = (event) => {
             isLiked: false
           }));
           setMovies(enrichedMovies); // добавлем в стейт обновленный массив
-          // console.log(enrichedMovies)
           setIsPreloader(false); // скрываем прелоадер после получения ответа от API
         })
         .catch((err) => {
           console.log(err);
           setIsPreloader(false); // скрываем прелоадер в случае ошибки
+          setIsMessage(REQUEST_ERROR_MESSAGE);
         });
     }
   }, [loggedIn]);
@@ -197,7 +162,6 @@ const handleSearch = (event) => {
               key={movie.id} // уникальный ключ для каждого элемента списка
               handleLike={() => handleLike(movie)}
               isLiked={likedMovies.some(i => i.movieId === movie.id)} // есть ли хотя бы один элемент в массиве `likedMovies`, у которого свойство `movieId` соответствует `id` текущего фильма
-              // isLiked={movie.isLiked}
             />
           );
         })}

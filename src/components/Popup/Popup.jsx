@@ -3,7 +3,7 @@ import './popup.css';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { validateName, validateEmail } from '../../utils/utils.js'
 
-function Popup({ isOpen, onClick, onUpdateUser }) {
+function Popup({ isOpen, onClick, onUpdateUser, successMessage, setSuccessMessage }) {
 
     // Подписка на контекст
     const currentUser = React.useContext(CurrentUserContext)
@@ -18,6 +18,8 @@ function Popup({ isOpen, onClick, onUpdateUser }) {
       email: "",
       password: "",
     });
+
+   
 
     const formValidation = (name, email) => {
         const isNameValid = validateName(name);
@@ -54,6 +56,10 @@ function Popup({ isOpen, onClick, onUpdateUser }) {
             email: profileEmail
         });
         onClick();
+        setSuccessMessage(true); // Устанавливаем сообщение "Успешно" в состояние
+        setTimeout(() => {
+          setSuccessMessage(false); // Через секунду убираем сообщение "Успешно" из состояния
+        }, 700);
     }
 
     React.useEffect(() => {

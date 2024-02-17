@@ -1,5 +1,5 @@
 import "../Register/register.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import {
@@ -7,7 +7,7 @@ import {
   validatePassword,
 } from "../../utils/utils.js";
 
-function Login({ onLogin }) {
+function Login({ onLogin, isError, setIsError }) {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
@@ -19,6 +19,7 @@ function Login({ onLogin }) {
     email: "",
     password: "",
   });
+  
 
   const formValidation = () => {
     const isEmailValid = validateEmail(formValue.email);
@@ -39,8 +40,15 @@ function Login({ onLogin }) {
       ...formValue,
       [name]: value,
     });
+     // Проводим валидацию и устанавливаем ошибки в процессе ввода
+     setErrors({
+      ...errors,
+      email: name === "email" ? (validateEmail(value) ? "" : "Некорректный email") : errors.email,
+      password: name === "password" ? (validatePassword(value) ? "" : "Некорректный пароль") : errors.password
+    });
     // Моментальная проверка валидности формы при каждом изменении
-    setIsFormValid(formValidation());
+    setIsFormValid(validateEmail(formValue.email) && validatePassword(formValue.password));
+  
   };
 
   const handleSubmit = (e) => {
@@ -49,6 +57,11 @@ function Login({ onLogin }) {
       onLogin(formValue);
     }
   };
+
+  useEffect(() => {
+    setIsError(false); // обновляем значение isError
+  }, []);
+
 
   return (
     <section className="register">
@@ -103,6 +116,7 @@ function Login({ onLogin }) {
           style={{ visibility: "hidden" }}
           placeholder="Имя"
         />
+        <p className="register__error" style={{ visibility: isError ? "visible" : "hidden" }}>Ошибка авторизации. Попробуйте ещё раз</p>
         <div className="register__button-container">
         <button
             type='submit'

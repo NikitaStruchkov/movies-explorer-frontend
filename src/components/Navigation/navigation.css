@@ -10,11 +10,13 @@
   margin-right: 71px;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 880px) {
   .navigation {
-    display: none;
+    visibility: hidden;
   }
 }
+
+
 
 .navigation__links {
   font-weight: 400;

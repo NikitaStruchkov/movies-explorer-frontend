@@ -34,15 +34,24 @@ function Register({ errorMessage, onRegister }) {
   }
 
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
+
     setFormValue({
       ...formValue,
-      [name]: value
+      [name]: value,
+    });
+     // Проводим валидацию и устанавливаем ошибки в процессе ввода
+     setErrors({
+      ...errors,
+      email: name === "email" ? (validateEmail(value) ? "" : "Некорректный email") : errors.email,
+      password: name === "password" ? (validatePassword(value) ? "" : "Некорректный пароль") : errors.password
     });
     // Моментальная проверка валидности формы при каждом изменении
-    setIsFormValid(formValidation());
-  }
+    setIsFormValid(validateEmail(formValue.email) && validatePassword(formValue.password));
+  
+  };
+  
   const handleSubmit = e => {
     e.preventDefault();
     if (isFormValid) {

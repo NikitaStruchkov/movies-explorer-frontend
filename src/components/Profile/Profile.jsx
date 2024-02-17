@@ -1,5 +1,5 @@
 import './profile.css';
-import React from 'react';
+import React, {useState} from 'react';
 import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Popup from '../Popup/Popup';
@@ -9,6 +9,7 @@ function Profile({ loggedIn, onClick, onUpdateUser }) {
 
   const [isOpen, setIsOpen] = React.useState(false) // состояние попапа
   const currentUser = React.useContext(CurrentUserContext) // контекст
+  const [successMessage, setSuccessMessage] = useState(false); // Состояние для отображения сообщения об успешном обновлении
 
   function hanlePopupOpen() {
     const popupElement = document.querySelector('.popup');
@@ -20,6 +21,7 @@ function Profile({ loggedIn, onClick, onUpdateUser }) {
   const popupElement = document.querySelector('.popup');
       popupElement.classList.remove('popup__opened');
       setIsOpen(false)
+
   }
 
   
@@ -28,6 +30,7 @@ function Profile({ loggedIn, onClick, onUpdateUser }) {
     <>
     <Header loggedIn={loggedIn} />
     <section className='profile'>
+    {successMessage && <div className="profile__message">Успешно!</div>}
       <h1 className='profile__welcome'>Привет, {currentUser.name}!</h1>
       <div className='profile__user-data'>
         <div className='profile__user-key-value'>
@@ -45,7 +48,7 @@ function Profile({ loggedIn, onClick, onUpdateUser }) {
       </div>
       
     </section>
-    <Popup isOpen={isOpen} onClick={hanlePopupClose} onUpdateUser={onUpdateUser} />
+    <Popup isOpen={isOpen} onClick={hanlePopupClose} onUpdateUser={onUpdateUser} successMessage={successMessage} setSuccessMessage={setSuccessMessage}  />
 
     </>
   );
