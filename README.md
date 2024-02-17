@@ -5,3 +5,5 @@
 
 
 https://diplom.nomoredomainsmonster.ru/movies
+
+https://github.com/NikitaStruchkov/movies-explorer-frontend/pulls
