@@ -1,5 +1,5 @@
 import './register.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg'
 import { validateName, validateEmail, validatePassword } from '../../utils/utils.js'
@@ -19,38 +19,39 @@ function Register({ errorMessage, onRegister }) {
     password: ''
   });
 
-  const formValidation = () => {
-    const isNameValid = validateName(formValue.name);
-    const isEmailValid = validateEmail(formValue.email);
-    const isPasswordValid = validatePassword(formValue.password);
-
-    setErrors({
-      name: isNameValid ? '' : 'Некорректное имя',
-      email: isEmailValid ? '' : 'Некорректный email',
-      password: isPasswordValid ? '' : 'Пароль должен состоять минимум из 8 символов'
-    });
-    console.log(isNameValid && isEmailValid && isPasswordValid)
-    return (isNameValid && isEmailValid && isPasswordValid);
-  }
-
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-
+  
     setFormValue({
       ...formValue,
       [name]: value,
     });
-     // Проводим валидацию и устанавливаем ошибки в процессе ввода
-     setErrors({
-      ...errors,
-      email: name === "email" ? (validateEmail(value) ? "" : "Некорректный email") : errors.email,
-      password: name === "password" ? (validatePassword(value) ? "" : "Некорректный пароль") : errors.password
-    });
-    // Моментальная проверка валидности формы при каждом изменении
-    setIsFormValid(validateEmail(formValue.email) && validatePassword(formValue.password));
   
+    setErrors({
+      ...errors,
+      [name]: 
+        name === "name" ? (validateName(value) ? "" : "поле name содержит только латиницу, кириллицу, пробел или дефис") :
+        name === "email" ? (validateEmail(value) ? "" : "поле email соответствует шаблону электронной почты") :
+        name === "password" ? (validatePassword(value) ? "" : "пароль должен состоять минимум из 8 символов") : ''
+    }, () => {
+      // После обновления ошибок вызываем функцию для проверки валидности формы
+      const validValue = validateName(formValue.name) && validateEmail(formValue.email) && validatePassword(formValue.password);
+      setIsFormValid(validValue);
+    });
   };
+  const validValue = validateName(formValue.name) && validateEmail(formValue.email) && validatePassword(formValue.password);
+
+  useEffect(() => { // для синронизации отображения ошибок и состояния кнопки
+    if (validValue === true) {
+      // Активируем кнопку
+      setIsFormValid(true)
+    } else {
+      // Деактивируем кнопку
+      setIsFormValid(false)
+    }
+  }, [validValue]);
+
+
   
   const handleSubmit = e => {
     e.preventDefault();

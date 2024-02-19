@@ -21,18 +21,6 @@ function Login({ onLogin, isError, setIsError }) {
   });
   
 
-  const formValidation = () => {
-    const isEmailValid = validateEmail(formValue.email);
-    const isPasswordValid = validatePassword(formValue.password);
-
-    setErrors({
-      email: isEmailValid ? "" : "Некорректный email",
-      password: isPasswordValid ? "" : "Некорректный пароль",
-    });
-    console.log(isEmailValid && isPasswordValid);
-    return isEmailValid && isPasswordValid;
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -45,11 +33,23 @@ function Login({ onLogin, isError, setIsError }) {
       ...errors,
       email: name === "email" ? (validateEmail(value) ? "" : "Некорректный email") : errors.email,
       password: name === "password" ? (validatePassword(value) ? "" : "Некорректный пароль") : errors.password
+    }, () => {
+      // После обновления ошибок вызываем функцию для проверки валидности формы
+      const validValue = validateEmail(formValue.email) && validatePassword(formValue.password);
+      setIsFormValid(validValue);
     });
-    // Моментальная проверка валидности формы при каждом изменении
-    setIsFormValid(validateEmail(formValue.email) && validatePassword(formValue.password));
-  
   };
+  const validValue = validateEmail(formValue.email) && validatePassword(formValue.password);
+
+  useEffect(() => { // для синронизации отображения ошибок и состояния кнопки
+    if (validValue === true) {
+      // Активируем кнопку
+      setIsFormValid(true)
+    } else {
+      // Деактивируем кнопку
+      setIsFormValid(false)
+    }
+  }, [validValue]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

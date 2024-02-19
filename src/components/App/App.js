@@ -81,7 +81,7 @@ function App() {
       .register(formValue.name, formValue.email, formValue.password)
       .then((res) => {
         console.log("DONE!");
-        navigate("/signin", { replace: true });
+        navigate("/movies", { replace: true });
       })
       .catch((err) => {
         console.log(err);
@@ -150,7 +150,7 @@ function App() {
             )
           );
         })
-        .catch((err) => console.log(err.message));
+        .catch((err) => console.log(err));
     }
   }
 
