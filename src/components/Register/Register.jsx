@@ -31,7 +31,7 @@ function Register({ errorMessage, onRegister }) {
       ...errors,
       [name]: 
         name === "name" ? (validateName(value) ? "" : "поле name содержит только латиницу, кириллицу, пробел или дефис") :
-        name === "email" ? (validateEmail(value) ? "" : "поле email соответствует шаблону электронной почты") :
+        name === "email" ? (validateEmail(value) ? "" : "поле email должно соответствовать шаблону электронной почты") :
         name === "password" ? (validatePassword(value) ? "" : "пароль должен состоять минимум из 8 символов") : ''
     }, () => {
       // После обновления ошибок вызываем функцию для проверки валидности формы

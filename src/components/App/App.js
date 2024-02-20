@@ -37,7 +37,7 @@ function App() {
       .authorize(formValue.email, formValue.password)
       .then(() => {
         setLoggedIn(true);
-        navigate("/");
+        navigate("/movies");
       })
       .catch((err) => {
         console.log(err);
@@ -81,6 +81,7 @@ function App() {
       .register(formValue.name, formValue.email, formValue.password)
       .then((res) => {
         console.log("DONE!");
+        setLoggedIn(true);
         navigate("/movies", { replace: true });
       })
       .catch((err) => {
