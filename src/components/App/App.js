@@ -36,6 +36,10 @@ function App() {
     auth
       .authorize(formValue.email, formValue.password)
       .then(() => {
+        setCurrentUser({
+          name: formValue.name,
+          email: formValue.email,
+        });
         setLoggedIn(true);
         navigate("/movies");
       })
@@ -81,7 +85,11 @@ function App() {
       .register(formValue.name, formValue.email, formValue.password)
       .then((res) => {
         console.log("DONE!");
-        setLoggedIn(true);
+        // setCurrentUser({
+        //   name: res.name,
+        //   email: res.email,
+        // });
+        handleLogin(formValue);
         navigate("/movies", { replace: true });
       })
       .catch((err) => {
@@ -94,6 +102,7 @@ function App() {
   // ВЫХОД
   const handleExit = () => {
     setLoggedIn(false);
+    setCurrentUser({});
     localStorage.removeItem("userId");
     localStorage.removeItem("movieState");
     localStorage.removeItem("likedMovies");

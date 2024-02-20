@@ -33,11 +33,11 @@ function Login({ onLogin, isError, setIsError }) {
       ...errors,
       email: name === "email" ? (validateEmail(value) ? "" : "Некорректный email") : errors.email,
       password: name === "password" ? (validatePassword(value) ? "" : "Некорректный пароль") : errors.password
-    }, () => {
+    })
       // После обновления ошибок вызываем функцию для проверки валидности формы
       const validValue = validateEmail(formValue.email) && validatePassword(formValue.password);
       setIsFormValid(validValue);
-    });
+  
   };
   const validValue = validateEmail(formValue.email) && validatePassword(formValue.password);
 

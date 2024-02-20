@@ -19,8 +19,6 @@ function Popup({ isOpen, onClick, onUpdateUser, successMessage, setSuccessMessag
       password: "",
     });
 
-   
-
     const formValidation = (name, email) => {
         const isNameValid = validateName(name);
         const isEmailValid = validateEmail(email);
@@ -51,17 +49,20 @@ function Popup({ isOpen, onClick, onUpdateUser, successMessage, setSuccessMessag
 
     function handleSubmit(e) {
         e.preventDefault();
-        onUpdateUser({
-            name: profileName,
-            email: profileEmail
-        });
-        onClick();
-        setSuccessMessage(true); // Устанавливаем сообщение "Успешно" в состояние
-        setTimeout(() => {
-          setSuccessMessage(false); // Через секунду убираем сообщение "Успешно" из состояния
-        }, 700);
-    }
+        if (profileName !== name || profileEmail !== email) { // Проверяем, были ли внесены изменения
+          onUpdateUser({
+              name: profileName,
+              email: profileEmail
+          });
+          onClick();
+          setSuccessMessage(true);
+          setTimeout(() => {
+            setSuccessMessage(false);
+          }, 700);
+        }
+      }
 
+   
     React.useEffect(() => {
         if (isOpen) {
             setProfileName(currentUser.name);
@@ -70,6 +71,17 @@ function Popup({ isOpen, onClick, onUpdateUser, successMessage, setSuccessMessag
             setIsFormValid(isValid);
         }
     }, [isOpen, currentUser]);
+
+    React.useEffect(() => {
+        if (profileName === name && profileEmail === email) {
+          // Если profileName или profileEmail соответствуют текущим значениям
+          setIsFormEdited(false); // Устанавливаем, что форма не была изменена
+        } else {
+          // Если profileName или profileEmail не соответствуют текущим значениям
+          setIsFormEdited(true); // Устанавливаем, что форма была изменена
+        }
+      }, [profileName, profileEmail, name, email]);
+
 
     return (
         <div className="popup">

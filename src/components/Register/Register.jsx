@@ -33,11 +33,11 @@ function Register({ errorMessage, onRegister }) {
         name === "name" ? (validateName(value) ? "" : "поле name содержит только латиницу, кириллицу, пробел или дефис") :
         name === "email" ? (validateEmail(value) ? "" : "поле email должно соответствовать шаблону электронной почты") :
         name === "password" ? (validatePassword(value) ? "" : "пароль должен состоять минимум из 8 символов") : ''
-    }, () => {
+    })
       // После обновления ошибок вызываем функцию для проверки валидности формы
       const validValue = validateName(formValue.name) && validateEmail(formValue.email) && validatePassword(formValue.password);
       setIsFormValid(validValue);
-    });
+  
   };
   const validValue = validateName(formValue.name) && validateEmail(formValue.email) && validatePassword(formValue.password);
 
