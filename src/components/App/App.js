@@ -71,7 +71,7 @@ function App() {
 
           // авторизуем пользователя
           setLoggedIn(true);
-          navigate("/", { replace: true });
+          // navigate("/", { replace: true });
         } else {
           setLoggedIn(false);
         }
@@ -109,7 +109,7 @@ function App() {
     localStorage.removeItem("likedMovies");
     localStorage.removeItem("filteredMovies");
 
-    navigate("/signin");
+    navigate("/");
   };
 
   const handleUpdateUser = (data) => {
@@ -254,6 +254,8 @@ function App() {
 
           <Route path="*" element={<ErrorPage />} />
         </Routes>
+
+        
       </div>
     </CurrentUserContext.Provider>
   );
