@@ -64,12 +64,13 @@ function Movies({  loggedIn , handleLike, likedMovies }) {
 //  обработчик нажатия кнопки Найти
 const handleSearch = (event) => {
   event.preventDefault();
+  let fullMoviesList = movies; // все фильмы
   if (searchQuery === '') {
     setFilteredMovies([]);
     setIsMessage(KEYWORD__MESSAGE);
     setInitialCards(initialCards); // Сброс значения количества карточек обратно к начальному значению
   } else {
-    const filteredMoviesList = movies.filter((movie) => {
+    const filteredMoviesList = fullMoviesList.filter((movie) => {
       const isFilmShort = isShortMoviesOnly ? movie.duration <= 40 : true;
       const isMatch = movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase());
       
@@ -140,7 +141,6 @@ const handleSearch = (event) => {
     }
   }, [isShortMoviesOnly]);
 
-
   return (
     <div>
       <Header loggedIn={loggedIn} />
@@ -152,7 +152,7 @@ const handleSearch = (event) => {
         />
         <FilterCheckbox isShortMoviesOnly={isShortMoviesOnly} onShortMoviesToggle={handleShortMoviesToggle} checked={savedState.isShortMoviesOnly} />
       </div>
-      <Preloader  isPreloader={isPreloader} />
+      <Preloader isPreloader={isPreloader} />
       <p className="movies__nothing-found">{isMessage}</p>
       <section className="movie-card-list">
         {filteredMovies.slice(0, initialCards).map((movie) => {

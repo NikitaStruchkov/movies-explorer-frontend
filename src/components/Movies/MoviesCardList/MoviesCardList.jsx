@@ -1,8 +1,6 @@
 import "./movie-card.css";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-// import { apiMain } from "../../../utils/MainApi";
-// import { CurrentUserContext } from "../../../contexts/CurrentUserContext"
 
 export default function MoviesCardList({ movie, handleLike,handleDelete, isLiked }) {
   const hours = Math.floor(movie.duration / 60);
@@ -16,14 +14,12 @@ export default function MoviesCardList({ movie, handleLike,handleDelete, isLiked
   function handleLikeMovie() {
     handleLike(movie, isSaved);
     setSaved(!isSaved);
-    // console.log(isSaved)
     
   }
 
   function handleDeleteMovie() {
     handleDelete(movie);
     setSaved(!isSaved);
-    // console.log(isSaved)
   }
 
   useEffect(() => { 
@@ -31,7 +27,6 @@ export default function MoviesCardList({ movie, handleLike,handleDelete, isLiked
   }, [isSaved])
   
 
-  
 
   return (
     <div className="movie-card">

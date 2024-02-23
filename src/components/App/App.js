@@ -106,6 +106,8 @@ function App() {
     localStorage.removeItem("userId");
     localStorage.removeItem("movieState");
     localStorage.removeItem("likedMovies");
+    localStorage.removeItem("filteredMovies");
+
     navigate("/signin");
   };
 

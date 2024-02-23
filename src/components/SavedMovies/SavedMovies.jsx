@@ -11,43 +11,34 @@ import { NOTHING_FOUND } from "../../utils/constants";
 
 function SavedMovies({ loggedIn, handleDelete, isChanged }) {
   const [likedMovies, setLikedMovies] = useState([]);
+   // для хранения отфильтрованных фильмов
+   const [filteredMovies, setFilteredMovies] = useState(likedMovies);
   // для значения ввода пользователя
   const [searchQuery, setSearchQuery] = useState("");
   const [isShortMoviesOnly, setIsShortMoviesOnly] = useState(false); // состояние чекбокса Короткометражки
   const [isMessage, setIsMessage] = useState("");
 
   useEffect(() => {
-    // загрузка списка фильмов при монтировании компонента
     apiMain
       .getMovies()
       .then((movies) => {
         setLikedMovies(movies);
+        setFilteredMovies(movies); // Устанавливаем отфильтрованные фильмы при первичной загрузке
       })
       .catch((err) => console.log(err));
-  }, [isChanged, searchQuery]);
+  }, [loggedIn, isChanged]);
 
-  useEffect(() => {
-    if (searchQuery) {
-      const filteredMoviesList = likedMovies.filter((movie) => {
-        const isFilmShort = isShortMoviesOnly ? movie.duration <= 40 : true;
-        const isMatch = movie.nameRU
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase());
-        return isFilmShort && isMatch;
-      });
-      setLikedMovies(filteredMoviesList);
-    } else {
-      setLikedMovies(likedMovies);
-    }
-  }, [isShortMoviesOnly]);
+ 
+  
 
   //  обработчик нажатия кнопки Найти
   const handleSearch = (event) => {
     event.preventDefault();
+    let fullMoviesList = likedMovies; // все фильмы
     if (searchQuery === "") {
-      setLikedMovies(likedMovies);
+      setFilteredMovies(likedMovies);
     } else {
-      const filteredMoviesList = likedMovies.filter((movie) => {
+      const filteredMoviesList = fullMoviesList.filter((movie) => {
         const isFilmShort = isShortMoviesOnly ? movie.duration <= 40 : true;
         const isMatch = movie.nameRU
           .toLowerCase()
@@ -57,10 +48,10 @@ function SavedMovies({ loggedIn, handleDelete, isChanged }) {
       });
 
       if (filteredMoviesList.length === 0) {
-        setLikedMovies([]);
+        setFilteredMovies([]);
         setIsMessage(NOTHING_FOUND);
       } else {
-        setLikedMovies(filteredMoviesList);
+        setFilteredMovies(filteredMoviesList);
         setIsMessage(" ");
       }
     }
@@ -75,8 +66,22 @@ function SavedMovies({ loggedIn, handleDelete, isChanged }) {
 
   // обработчик изменения состояния чекбокса "Короткометражки"
   const handleShortMoviesToggle = () => {
-    setIsShortMoviesOnly(!isShortMoviesOnly);
+    setIsShortMoviesOnly((prevState) => !prevState);
   };
+
+  useEffect(() => {
+    if (searchQuery) {
+      const filteredMoviesList = likedMovies.filter((movie) => {
+        const isFilmShort = isShortMoviesOnly ? movie.duration <= 40 : true;
+        const isMatch = movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase());
+        return isFilmShort && isMatch;
+      });
+      setFilteredMovies(filteredMoviesList);
+    } else {
+      setFilteredMovies(likedMovies);
+    }
+  }, [isShortMoviesOnly, searchQuery]);
+
 
   return (
     <div>
@@ -95,7 +100,7 @@ function SavedMovies({ loggedIn, handleDelete, isChanged }) {
       </div>
       <p className="movies__nothing-found">{isMessage}</p>
       <section className="movie-card-list">
-        {likedMovies.map((movie) => (
+        {filteredMovies.map((movie) => (
           <MoviesCardList
             movie={movie}
             key={movie._id}
