@@ -141,6 +141,8 @@ const handleSearch = (event) => {
     }
   }, [isShortMoviesOnly]);
 
+
+  
   return (
     <div>
       <Header loggedIn={loggedIn} />

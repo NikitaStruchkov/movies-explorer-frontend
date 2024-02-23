@@ -103,6 +103,7 @@ function App() {
   const handleExit = () => {
     setLoggedIn(false);
     setCurrentUser({});
+    setLikedMovies([]);
     localStorage.removeItem("userId");
     localStorage.removeItem("movieState");
     localStorage.removeItem("likedMovies");

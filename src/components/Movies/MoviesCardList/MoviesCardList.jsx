@@ -9,7 +9,7 @@ export default function MoviesCardList({ movie, handleLike,handleDelete, isLiked
   const location = useLocation();
 
   const [isSaved, setSaved] = useState(isLiked);
-  
+
 
   function handleLikeMovie() {
     handleLike(movie, isSaved);
@@ -21,12 +21,6 @@ export default function MoviesCardList({ movie, handleLike,handleDelete, isLiked
     handleDelete(movie);
     setSaved(!isSaved);
   }
-
-  useEffect(() => { 
-    console.log(isSaved);
-  }, [isSaved])
-  
-
 
   return (
     <div className="movie-card">
