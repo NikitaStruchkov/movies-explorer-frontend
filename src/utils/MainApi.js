@@ -88,8 +88,8 @@ deleteMovie(movieId) {
 }
 
 export const apiMain = new MainApi({
-    // url: 'https://api.diplom.nomoredomainsmonster.ru',
-    url: 'http://localhost:3001',
+    url: 'https://api.diplom.nomoredomainsmonster.ru',
+    // url: 'http://localhost:3001',
     headers: {
       'Content-Type': 'application/json',
     },
