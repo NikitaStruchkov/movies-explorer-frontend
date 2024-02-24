@@ -71,7 +71,6 @@ function App() {
 
           // авторизуем пользователя
           setLoggedIn(true);
-          // navigate("/", { replace: true });
         } else {
           setLoggedIn(false);
         }
@@ -85,10 +84,6 @@ function App() {
       .register(formValue.name, formValue.email, formValue.password)
       .then((res) => {
         console.log("DONE!");
-        // setCurrentUser({
-        //   name: res.name,
-        //   email: res.email,
-        // });
         handleLogin(formValue);
         navigate("/movies", { replace: true });
       })
@@ -180,9 +175,20 @@ function App() {
     }
   }
 
+  // useEffect(() => {
+  //   localStorage.setItem("likedMovies", JSON.stringify(likedMovies));
+  // }, [likedMovies]);
+
+  // при авторизации пользователя в массив likedMovies попадают фильмы, ранее сохраненные пользователем 
+  // использую это для корректного отображения лайка
   useEffect(() => {
-    localStorage.setItem("likedMovies", JSON.stringify(likedMovies));
-  }, [likedMovies]);
+    apiMain
+      .getMovies()
+      .then((movies) => {
+        setLikedMovies(movies);
+      })
+      .catch((err) => console.log(err));
+  }, [loggedIn]);
 
   function handleDelete(movieId) {
     //  удаление фильма из списка понравившихся фильмов

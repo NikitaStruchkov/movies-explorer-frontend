@@ -1,5 +1,5 @@
 import './profile.css';
-import React, {useState} from 'react';
+import React from 'react';
 import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Popup from '../Popup/Popup';
