@@ -5,7 +5,7 @@
   z-index: 1;
   right: 0;
   height: 1024px;
-  display: none; /* для 3 этапа */
+  display: none;
 }
 
 @media (max-width: 500px) {
@@ -38,7 +38,8 @@
 }
 
 .burger__container {
-  margin-top: 159px;
+  margin: 159px auto 0;
+/* сверху | горизонтально | снизу */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -48,6 +49,7 @@
 .burger__links {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 28px;
   font-size: 1.125rem;
   font-family: 'Inter', 'Arial', sans-serif;
@@ -67,6 +69,10 @@
   text-align: center;
   display: flex;
   align-items: center;
+}
+
+.burger__link:hover {
+  text-decoration: underline;
 }
 
 .burger__account {

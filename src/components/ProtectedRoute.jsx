@@ -5,10 +5,8 @@ const ProtectedRouteElement = ({ element: Component, ...props }) => {
   return props.loggedIn ? (
     <Component {...props} />
   ) : (
-    <Navigate to='/signin' replace />
+    <Navigate to='/' replace />
   )
 }
 
 export default ProtectedRouteElement
-
-// HOC ProtectedRoute — этим компонентом защитите роут /, чтобы на него не смогли перейти неавторизованные пользователи

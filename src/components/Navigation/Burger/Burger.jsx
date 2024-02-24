@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import iconblack from '../../../images/acc-icon-black.svg';
 
-export default function Burger() {
+export default function Burger({closePopup}) {
   return (
     <section className='burger'>
-      <button className='burger__close' type='button'></button>
+      <button className='burger__close' type='button' onClick={closePopup}></button>
       <div className='burger__container'>
         <div className='burger__links'>
           <Link className='burger__link' to='/'>

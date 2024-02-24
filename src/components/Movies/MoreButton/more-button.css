@@ -1,0 +1,29 @@
+ .more-button {
+    width: 89%;
+    height: 166px;
+    border-radius: 6px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.more-button__button {
+    background-color: #F9F9F9;
+    width: 320px;
+    height: 36px;
+    border-style: none;
+    border-radius: inherit;
+    margin: 0 auto;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: #000;
+}
+
+.more-button__button:hover {
+    opacity: 0.6;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}

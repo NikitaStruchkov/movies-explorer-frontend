@@ -82,9 +82,9 @@
   display: none;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 880px) {
   .header__burger {
-    /* display: block; для 3 этапа */ 
+    display: block;
   }
 }
 
