@@ -3,7 +3,7 @@ import './popup.css';
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { validateName, validateEmail } from '../../utils/utils.js'
 
-function Popup({ isOpen, onClick, onUpdateUser, successMessage, setSuccessMessage }) {
+function Popup({ isOpen, onClick, onUpdateUser }) {
 
     // Подписка на контекст
     const currentUser = React.useContext(CurrentUserContext)
@@ -55,10 +55,6 @@ function Popup({ isOpen, onClick, onUpdateUser, successMessage, setSuccessMessag
               email: profileEmail
           });
           onClick();
-          setSuccessMessage(true);
-          setTimeout(() => {
-            setSuccessMessage(false);
-          }, 700);
         }
       }
 

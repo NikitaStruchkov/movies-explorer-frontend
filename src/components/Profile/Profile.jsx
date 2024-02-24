@@ -5,11 +5,11 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Popup from '../Popup/Popup';
 
 
-function Profile({ loggedIn, onClick, onUpdateUser }) {
+function Profile({ loggedIn, onClick, onUpdateUser, successMessage }) {
 
   const [isOpen, setIsOpen] = React.useState(false) // состояние попапа
   const currentUser = React.useContext(CurrentUserContext) // контекст
-  const [successMessage, setSuccessMessage] = useState(false); // Состояние для отображения сообщения об успешном обновлении
+  
 
   function hanlePopupOpen() {
     const popupElement = document.querySelector('.popup');
@@ -23,8 +23,6 @@ function Profile({ loggedIn, onClick, onUpdateUser }) {
       setIsOpen(false)
 
   }
-
-  
 
   return (
     <>
@@ -48,7 +46,7 @@ function Profile({ loggedIn, onClick, onUpdateUser }) {
       </div>
       
     </section>
-    <Popup isOpen={isOpen} onClick={hanlePopupClose} onUpdateUser={onUpdateUser} successMessage={successMessage} setSuccessMessage={setSuccessMessage}  />
+    <Popup isOpen={isOpen} onClick={hanlePopupClose} onUpdateUser={onUpdateUser}/>
 
     </>
   );

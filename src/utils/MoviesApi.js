@@ -29,7 +29,6 @@ class moviesApi {
 
 export const apiMovies = new moviesApi({
   url: 'https://api.nomoreparties.co/beatfilm-movies',
-  // url: 'http://localhost:3001',
   headers: {
     'Content-Type': 'application/json',
   },

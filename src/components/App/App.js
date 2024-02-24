@@ -112,14 +112,27 @@ function App() {
     navigate("/");
   };
 
+  const [successMessage, setSuccessMessage] = useState(false); // Состояние для отображения сообщения об успешном обновлении
+
   const handleUpdateUser = (data) => {
-    apiMain
-      .sendUserInfo(data)
-      .then((newUser) => {
-        setCurrentUser(newUser);
-      })
-      .catch((err) => console.log(err));
-  };
+    apiMain.sendUserInfo(data)
+    .then((newUser) => {
+      setCurrentUser(newUser);
+      setSuccessMessage(true);
+      setTimeout(() => {
+        setSuccessMessage(false);
+      }, 700);
+    })
+    .catch((err) => {
+      if (err.response && err.response.status === 409) {
+        // Пользователь получил ошибку 409 (конфликт)
+        setSuccessMessage(false);
+      } else {
+        // Обработка остальных ошибок
+        console.error(err);
+      }
+    });
+};
 
   // «Реакт» вызовет этот колбэк после того, как компонент будет смонтирован или обновлён.
   React.useEffect(() => {
@@ -247,6 +260,7 @@ function App() {
                 element={Profile}
                 onClick={handleExit}
                 onUpdateUser={handleUpdateUser}
+                successMessage={successMessage}
                 loggedIn={loggedIn}
               />
             }
